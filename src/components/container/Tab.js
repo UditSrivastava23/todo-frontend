@@ -1,22 +1,24 @@
 import styles from './tab.module.css'
+import useState from 'react';
 
-function Tab(){
+// function Tab(props){
+function Tab({task,id}){
     return(
         <div className={styles.tab}>
             <div className={styles.section1}>
                 <div className="title">
-                    CSS
+                    {task?.title}
                 </div>
                 <div className="category">
-                    Personal
+                    {task?.category}
                 </div>
             </div>
             <div className={styles.section2}>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi rerum alias nisi quod eum aliquid consequatur id consectetur. Labore voluptate fuga sed debitis ullam quo aut laboriosam reprehenderit soluta! Distinctio quisquam sunt accusantium repellendus, blanditiis quibusdam asperiores natus sapiente id?</p>
+                <p>{task?.desc}</p>
             </div>
             <div className={styles.section3}>
                 <div className="d_date">
-                    12-06-2023
+                    {new Date(task?.d_date).toDateString()}
                 </div>
             </div>
         </div>

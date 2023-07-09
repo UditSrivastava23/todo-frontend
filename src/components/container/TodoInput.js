@@ -1,6 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import Modal from "react-modal";
+import SuccessModal from "../modal/suceessModal";
+import AuthErrModal from "../modal/authErrModal";
+import { useNavigate } from 'react-router-dom';
 
 function TodoInput() {
+
+  const navigate = useNavigate()
 
   const [formData , setFormData] = useState({
     title : '',
@@ -8,6 +14,21 @@ function TodoInput() {
     d_date : null,
     category : 'Personal'
   })
+
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [success, setSuccess] = useState(false);
+  const [failure, setFailure] = useState(false);
+  const [msg , setMsg] = useState('');
+  const [isLoggedOut , setIsLoggedOut] = useState(true)
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+    navigate('/home')
+  }
 
   let divStyle ={
     textAlign: 'center',
@@ -40,19 +61,30 @@ function TodoInput() {
     let res = await fetch(url,{
       method : 'POST',
       mode : 'cors',
+      headers : {
+        'Authorization' : `Bearer ${localStorage.getItem('token')}`
+    },
       body : new URLSearchParams(formData)
     });
     console.log('res',res);
     let data = await res.json();
     console.log('data',data);
+    setMsg(data.message)
   }
 
   let handleSubmit = (e)=>{
     console.log(e);
     e.preventDefault();
     fetchData()
+    openModal()
   }
 
+  useEffect(()=>{
+    if(!localStorage.getItem('token')){
+      console.log('In use Effect ');
+      navigate('/signin');
+    }
+  })
   return (
     <div className="inputForm" style={divStyle}>
       <h1>TO DO Input From</h1>
@@ -67,6 +99,15 @@ function TodoInput() {
         </select>
         <button>Add</button>
       </form>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Form Submitted"
+        ariaHideApp={false}
+      >
+        <SuccessModal message={msg} close={setIsOpen} route={'/home'}/>
+      </Modal>  
+      
     </div>
   )
 }
