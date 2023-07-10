@@ -79,26 +79,26 @@ function Home() {
     openModal();
   }
 
-  async function update(id){
-    console.log('In update id is ',id);
-    console.log('data to send in update is ' , editedTask);
-    let url = `http://localhost:8000/update/${id}`;
-    let options = {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      body : new URLSearchParams(editedTask)
-    };
-    let res = await fetch(url , options);
-    let data = await res.json();
-    console.log(data);
-    setMessage(data?.message);
-    setSuccess(true)
-    openModal();
-    setEditMode(false)
-  }
+  // async function update(id){
+  //   console.log('In update id is ',id);
+  //   console.log('data to send in update is ' , editedTask);
+  //   let url = `http://localhost:8000/update/${id}`;
+  //   let options = {
+  //     method: "POST",
+  //     mode: "cors",
+  //     headers: {
+  //       Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //     },
+  //     body : new URLSearchParams(editedTask)
+  //   };
+  //   let res = await fetch(url , options);
+  //   let data = await res.json();
+  //   console.log(data);
+  //   setMessage(data?.message);
+  //   setSuccess(true)
+  //   openModal();
+  //   setEditMode(false)
+  // }
 
   useEffect(() => {
     fetchData();
@@ -113,13 +113,13 @@ function Home() {
           <div class="tab_panel">
             <div class="tab">
               {(!editMode || (clickedId !== e?._id)) && <Tab task={e} key={i} id={e?._id} />}
-              {editMode && (clickedId === e?._id) && <EditTab task={e} key={i} setUserData = {setEditedTask} update={update}/>}
+              {editMode && (clickedId === e?._id) && <EditTab task={e} key={i} setEditMode = {setEditMode} openModal= {openModal} setSuccess={setSuccess} setMessage = {setMessage}/>}
             </div>
             {!editMode && <div className="dlt_btn" onClick={() => {dlt(e._id)}}> X </div>}
             {editMode && <div className="dlt_btn" onClick={() => {setEditMode(false)}}> X </div>}
             <div class="edt_btn" >
               {(!editMode || (clickedId !== e?._id)) && <i className="fa-solid fa-pen-to-square" onClick={() => {edt(e._id)}}></i>}
-              {(editMode && clickedId === e?._id) && <i class="fa-solid fa-check" onClick={()=>{update(e?._id)}}></i>}
+              {/*(editMode && clickedId === e?._id) && <i class="fa-solid fa-check" onClick={()=>{update(e?._id)}}></i>*/}
             </div>
             {/* <div class="dlt_btn" onClick = {dlt(e._id)}>X</div> */}
           </div>
