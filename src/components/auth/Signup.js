@@ -46,7 +46,7 @@ const Signup = () => {
     };
     let res = await fetch(url, options);
     let data = await res.json();
-    console.log({data});
+    // console.log({data});
     setMessage(data?.message);
     if (res.status !==200) {
       setMessage(data?.message);
@@ -57,14 +57,14 @@ const Signup = () => {
   };
 
   let handleChange = (e) => {
-    console.log("e.target.name", e.target.name);
-    console.log("e.target.value", e.target.value);
+    // console.log("e.target.name", e.target.name);
+    // console.log("e.target.value", e.target.value);
 
     setValue((prevValue) => {
       value[e.target.name] = e.target.value;
       return prevValue;
     });
-    console.log("Current state is ", value);
+    // console.log("Current state is ", value);
   };
 
   let handleSubmit = (e) => {
@@ -114,7 +114,7 @@ const Signup = () => {
         onRequestClose={closeModal}
         ariaHideApp={false}
       >
-        {console.log("::::", message)}
+        {/* console.log("::::", message)*/}
         {success && <SuccessModal close={closeModal} message={message} route={'/signin'}/>}
         {failure && <AuthErrModal close={closeModal} message={message} />}
       </Modal>

@@ -36,18 +36,18 @@ const SignIn = () => {
   }
 
   let handleChange = (e) => {
-    console.log("e.target.name", e.target.name);
-    console.log("e.target.value", e.target.value);
+    // console.log("e.target.name", e.target.name);
+    // console.log("e.target.value", e.target.value);
 
     setValue((prevValue) => {
       value[e.target.name] = e.target.value;
       return prevValue;
     });
-    console.log("Current state is ", value);
+    // console.log("Current state is ", value);
   };
 
   let createSession = async () => {
-    console.log('hahahahaha');
+    // console.log('hahahahaha');
     let url = "http://localhost:8000/create-session";
     let options = {
       method: "POST",
@@ -56,7 +56,7 @@ const SignIn = () => {
     };
     let res = await fetch(url, options);
     let data = await res.json();
-    console.log('123',{data});
+    // console.log('123',{data});
     setMessage(data.message);
     if(!!data?.data?.token){
         localStorage.setItem('token',data?.data.token)
@@ -68,7 +68,7 @@ const SignIn = () => {
 
   let handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(e);
+    // // console.log(e);
     createSession();
     openModal();
   };
@@ -106,7 +106,7 @@ const SignIn = () => {
         onRequestClose={closeModal}
         ariaHideApp={false}
       >
-        {console.log("::::", message)}
+        {/* { console.log("::::", message)} */}
         {success && <SuccessModal close={closeModal} message={message} route={'/home'}/>}
         {failure && <AuthErrModal close={closeModal} message={message} />}
       </Modal>

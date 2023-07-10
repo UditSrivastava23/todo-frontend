@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 const AuthErrModal = ({close , message}) => {
 
-  console.log('AUth Error Modal');
+  // console.log('AUth Error Modal');
 
 
   const navigate = useNavigate()

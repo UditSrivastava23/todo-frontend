@@ -5,7 +5,7 @@ const SuccessModal = ({ close, message ,route}) => {
 
   const navigate = useNavigate();
 
-  console.log('SUccessModal');
+  // console.log('SUccessModal');
 
   function closeModal() {
     close(false);

@@ -45,14 +45,14 @@ function TodoInput() {
   }
 
   let handleChange = (e)=>{
-    console.log('e.target.name',e.target.name);
-    console.log('e.target.value',e.target.value);
+    // console.log('e.target.name',e.target.name);
+    // console.log('e.target.value',e.target.value);
     
     setFormData((prevValue)=>{
       prevValue[e.target.name] = e.target.value
       return prevValue;
     })
-    console.log('Current State is' , formData);
+    // console.log('Current State is' , formData);
 
   }
 
@@ -66,14 +66,14 @@ function TodoInput() {
     },
       body : new URLSearchParams(formData)
     });
-    console.log('res',res);
+    // console.log('res',res);
     let data = await res.json();
-    console.log('data',data);
+    // console.log('data',data);
     setMsg(data.message)
   }
 
   let handleSubmit = (e)=>{
-    console.log(e);
+    // console.log(e);
     e.preventDefault();
     fetchData()
     openModal()
@@ -81,7 +81,7 @@ function TodoInput() {
 
   useEffect(()=>{
     if(!localStorage.getItem('token')){
-      console.log('In use Effect ');
+      // console.log('In use Effect ');
       navigate('/signin');
     }
   })

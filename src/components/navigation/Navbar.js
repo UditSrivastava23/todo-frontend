@@ -12,12 +12,12 @@ function Navbar() {
 
   function checkToken(){
     if (localStorage.getItem("token")) {
-        console.log('TOken Is Found');
+        // console.log('TOken Is Found');
       setToken(localStorage.getItem("token"));
       setIsLoggedIn(true);
     }
     else{
-        console.log('Token Not Found');
+        // console.log('Token Not Found');
         setIsLoggedIn(false)
     }
   }
@@ -71,7 +71,7 @@ function Navbar() {
     </>
   );
 
-  console.log("this is state", loggedIn);
+  // console.log("this is state", loggedIn);
   return (
     <div className="navbar" style={navBarStyle}>
       <div class="appName">

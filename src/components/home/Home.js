@@ -32,7 +32,7 @@ function Home() {
   };
 
   let fetchData = async () => {
-    console.log("My token is token", localStorage.getItem("token"));
+    // console.log("My token is token", localStorage.getItem("token"));
     let url = "http://localhost:8000/home";
     let options = {
       method: "GET",
@@ -43,14 +43,14 @@ function Home() {
     };
     let res = await fetch(url, options);
     let data = await res.json();
-    console.log("(-_-)", data);
+    // console.log("(-_-)", data);
     if (res.status === 401) {
       setMessage(data?.message);
       setFailure(true)
       openModal();
     }
     setTask(data.data);
-    console.log('task is set',task)
+    // console.log('task is set',task)
     // if(task.length === 0){
     //   navigate('/form')
     // }
@@ -62,7 +62,7 @@ function Home() {
   }
 
   async function dlt(id) {
-    console.log("id is", id);
+    // console.log("id is", id);
     let url = `http://localhost:8000/delete/${id}`;
     let options = {
       method: "GET",
@@ -73,15 +73,15 @@ function Home() {
     };
     const res = await fetch(url, options);
     let data = await res.json();
-    console.log("deleted response", data);
+    // console.log("deleted response", data);
     setMessage(data?.message);
     setSuccess(true)
     openModal();
   }
 
   // async function update(id){
-  //   console.log('In update id is ',id);
-  //   console.log('data to send in update is ' , editedTask);
+  //   // console.log('In update id is ',id);
+  //   // console.log('data to send in update is ' , editedTask);
   //   let url = `http://localhost:8000/update/${id}`;
   //   let options = {
   //     method: "POST",
@@ -93,7 +93,7 @@ function Home() {
   //   };
   //   let res = await fetch(url , options);
   //   let data = await res.json();
-  //   console.log(data);
+  //   // console.log(data);
   //   setMessage(data?.message);
   //   setSuccess(true)
   //   openModal();
@@ -106,7 +106,7 @@ function Home() {
 
   return (
     <div className="mainPanel" style={panelStyle}>
-      {console.log("***", task)}
+      {/* { console.log("***", task)} */}
       {task.length===0?navigate('/form'):null}
       {task?.map((e, i) => {
         return (
@@ -126,7 +126,7 @@ function Home() {
         );
       })}
       <Modal isOpen={modalIsOpen} ariaHideApp={false}>
-        {console.log("::::", message)}
+        {/* { console.log("::::", message)} */}
         {success && <SuccessModal message={message} close={setIsOpen} />}
         {failure && <AuthErrModal message={message} close={setIsOpen} />}
       </Modal>

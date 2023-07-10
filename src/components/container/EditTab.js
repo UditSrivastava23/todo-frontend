@@ -5,7 +5,7 @@ import {useState} from "react";
 // function Tab(props){
 function EditTab({ task, setEditMode , openModal ,setSuccess , setMessage}) {
 
-  console.log('In Edit Tab');
+  // console.log('In Edit Tab');
 
   let divStyle ={
     textAlign: 'center',
@@ -29,17 +29,17 @@ function EditTab({ task, setEditMode , openModal ,setSuccess , setMessage}) {
   })
 
   let handleChange =async(e)=>{
-    console.log('e.target.name',e.target.name);
-    console.log('e.target.value',e.target.value);    
+    // console.log('e.target.name',e.target.name);
+    // console.log('e.target.value',e.target.value);    
     setFormData((prevValue)=>({
       ...prevValue , [e.target.name]:e.target.value 
   }))
-    console.log('Current State is' , formData);
+    // console.log('Current State is' , formData);
   }
 
   async function update(id){
-    console.log('In update id is ',id);
-    console.log('data to send in update is ' , formData);
+    // console.log('In update id is ',id);
+    // console.log('data to send in update is ' , formData);
     let url = `http://localhost:8000/update/${id}`;
     let options = {
       method: "POST",
@@ -51,7 +51,7 @@ function EditTab({ task, setEditMode , openModal ,setSuccess , setMessage}) {
     };
     let res = await fetch(url , options);
     let data = await res.json();
-    console.log(data);
+    // console.log(data);
     setMessage(data?.message);
     setSuccess(true)
     openModal();
@@ -59,7 +59,7 @@ function EditTab({ task, setEditMode , openModal ,setSuccess , setMessage}) {
   }
 
   let handleSubmit = async(e)=>{
-    console.log(e);
+    // console.log(e);
     e.preventDefault();
     // await setUserData(formData)
     update(task._id);
