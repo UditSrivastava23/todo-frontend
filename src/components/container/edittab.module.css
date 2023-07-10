@@ -5,19 +5,25 @@
     grid-template-rows: 35% 45% 20%;
     border: 1px solid black;
 }
+
 .section1{
     padding: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 .section2{
+    width: 95%;
     padding: 5px;
     margin: 5px;
     overflow: scroll;
 }
 .section2::-webkit-scrollbar{
     display: none;
+}
+.desc{
+    width: 90%;
 }
 .section3{
     padding: 5px;

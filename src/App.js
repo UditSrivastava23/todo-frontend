@@ -20,7 +20,6 @@ function App() {
         <Route exact path='/signup' Component={Signup}/>
         <Route exact path='/signin' Component={SignIn}/>
         <Route exact path='/logout' Component={Logout}/>
-        
       </Routes>
     </div>
   )

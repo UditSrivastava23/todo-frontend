@@ -34,6 +34,7 @@ function Navbar() {
 
   let signedJsx = (
     <>
+    <div class="menuBtn" style={{ ...navBarStyle, width: "230px" }}>
       <div onClick={checkToken}>
         <Link to="/home" className={classes.a}>
           My Task
@@ -49,11 +50,13 @@ function Navbar() {
           Sign Out
         </Link>
       </div>
+      </div>
     </>
   );
 
   let unSignedJsx = (
     <>
+    <div class="menuBtn" style={{ ...navBarStyle, width: "150px" }}>
       <div onClick={checkToken}>
         <Link to="/signup" className={classes.a}>
           Sign Up
@@ -63,6 +66,7 @@ function Navbar() {
         <Link to="/signin" className={classes.a}>
           Sign In
         </Link>
+      </div>
       </div>
     </>
   );

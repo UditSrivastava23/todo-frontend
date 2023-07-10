@@ -6,15 +6,19 @@ import "./home.css";
 import Modal from "react-modal";
 import SuccessModal from "../modal/suceessModal";
 import AuthErrModal from "../modal/authErrModal";
+import EditTab from "../container/EditTab";
 
 function Home() {
   const navigate = useNavigate();
   const [task, setTask] = useState([]);
+  const [editedTask , setEditedTask] = useState(null)
   // const [viewForm , setViewForm] = useState(false)
   const [message, setMessage] = useState("");
+  const [editMode , setEditMode] = useState(false)
   const [modalIsOpen, setIsOpen] = useState(false);
   const [success, setSuccess] = useState(false);
   const [failure, setFailure] = useState(false);
+  const [clickedId , setClickedId] = useState('')
 
   function openModal() {
     setIsOpen(true);
@@ -46,16 +50,15 @@ function Home() {
       openModal();
     }
     setTask(data.data);
+    console.log('task is set',task)
+    // if(task.length === 0){
+    //   navigate('/form')
+    // }
   };
 
   function edt(id) {
-    let newArr = task.filter((ele) => {
-      if (ele._id !== id) {
-        return ele;
-      }
-      return null;
-    });
-    console.log("this is newArr", newArr);
+    setClickedId(id)
+    setEditMode(true)
   }
 
   async function dlt(id) {
@@ -76,6 +79,27 @@ function Home() {
     openModal();
   }
 
+  async function update(id){
+    console.log('In update id is ',id);
+    console.log('data to send in update is ' , editedTask);
+    let url = `http://localhost:8000/update/${id}`;
+    let options = {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body : new URLSearchParams(editedTask)
+    };
+    let res = await fetch(url , options);
+    let data = await res.json();
+    console.log(data);
+    setMessage(data?.message);
+    setSuccess(true)
+    openModal();
+    setEditMode(false)
+  }
+
   useEffect(() => {
     fetchData();
   },[modalIsOpen]);
@@ -83,28 +107,19 @@ function Home() {
   return (
     <div className="mainPanel" style={panelStyle}>
       {console.log("***", task)}
+      {task.length===0?navigate('/form'):null}
       {task?.map((e, i) => {
         return (
           <div class="tab_panel">
             <div class="tab">
-              <Tab task={e} key={i} id={e?._id} />
-              {/* {viewFrom && <EditTab task={e} key={i} id={e._id}/>} */}
+              {(!editMode || (clickedId !== e?._id)) && <Tab task={e} key={i} id={e?._id} />}
+              {editMode && (clickedId === e?._id) && <EditTab task={e} key={i} setUserData = {setEditedTask} update={update}/>}
             </div>
-            <div
-              class="dlt_btn"
-              onClick={() => {
-                dlt(e._id);
-              }}
-            >
-              X
-            </div>
-            <div
-              class="edt_btn"
-              onClick={() => {
-                edt(e._id);
-              }}
-            >
-              <i className="fa-solid fa-pen-to-square"></i>
+            {!editMode && <div className="dlt_btn" onClick={() => {dlt(e._id)}}> X </div>}
+            {editMode && <div className="dlt_btn" onClick={() => {setEditMode(false)}}> X </div>}
+            <div class="edt_btn" >
+              {(!editMode || (clickedId !== e?._id)) && <i className="fa-solid fa-pen-to-square" onClick={() => {edt(e._id)}}></i>}
+              {(editMode && clickedId === e?._id) && <i class="fa-solid fa-check" onClick={()=>{update(e?._id)}}></i>}
             </div>
             {/* <div class="dlt_btn" onClick = {dlt(e._id)}>X</div> */}
           </div>
